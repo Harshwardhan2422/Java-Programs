@@ -11,7 +11,7 @@ class Addition
     }
 }
 
-class Program6
+class Program06
 {
     public static void main(String A[])
     {
