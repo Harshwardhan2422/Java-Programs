@@ -20,7 +20,7 @@ class Addition
         return fAdd;
     }
 }
-class Program9
+class Program09
 {
     public static void main(String A[])
     {
