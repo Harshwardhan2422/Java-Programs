@@ -1,0 +1,244 @@
+class node
+{
+    public int data;
+    public node next;
+    public node prev;
+    
+    public node(int  x)
+    {
+        data = x;
+        next = null;
+        prev = null;
+    }    
+}
+
+class DoublyLL 
+{
+    public node head;
+    
+    public DoublyLL()
+    {
+        head = null;
+    }
+    
+    public void InsertFirst(int no)
+    {
+        node newn = null;
+        newn = new node(no);
+        
+        if(head == null)
+        {
+            head = newn;
+        }
+        else
+        {
+            newn.next = head;
+            head.prev = newn;
+            head = newn;
+        }
+    }    
+    
+    public void InsertLast(int no)
+    {
+        node newn = null;
+        node temp = null;
+        newn = new node(no);
+        
+        if(head == null)
+        {
+            head = newn;
+        }
+        else
+        {
+            temp = head;
+            
+            while(temp.next != null)
+            {
+                temp = temp.next;
+            }
+            temp.next = newn;
+            newn.prev = temp;                       
+        }
+    }
+    
+    public void Display()
+    {
+        node temp = null;
+        temp = head;
+        
+        System.out.print("null");
+        while(temp != null)
+        {
+            System.out.print("<=>|"+temp.data+"|");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+    
+    public int Count()
+    {
+        int iCount = 0;
+        node temp = null;
+        temp = head;
+        
+        while(temp != null)
+        {
+            iCount++;
+            temp = temp.next;
+        }
+        return iCount;
+    }
+    
+    public void DeleteFirst()
+    {
+        if(head == null)
+        {
+            return;
+        }
+        else if(head.next == null)
+        {
+            head = null;
+            System.gc();
+        }
+        else
+        {
+            head = head.next;
+            head.prev = null;
+            System.gc();
+        }
+    }
+    
+    public void DeleteLast()
+    {
+        node temp = null;
+        
+        if(head == null)
+        {
+            return;
+        }
+        else if(head.next == null)
+        {
+            head = null;
+            System.gc();
+        }
+        else
+        {
+            temp = head;
+            
+            while(temp.next.next != null)
+            {
+                temp = temp.next;
+            }
+            temp.next = null;
+            System.gc();
+        }
+    }
+    
+    public void InsertAtPos(int no, int ipos)
+    {
+        int Countnode = 0, i = 0;
+        Countnode = Count();
+        
+        node newn = null;
+        node temp = null;
+        
+        newn = new node(no);
+        
+        if((ipos < 1) || (ipos > Countnode + 1))
+        {
+            System.out.println("Invalid Position ");
+            return;
+        }
+        if(ipos == 1)
+        {
+            InsertFirst(no);
+        }
+        else if(ipos == Countnode + 1)
+        {
+            InsertLast(no);
+        }
+        else 
+        {
+            temp = head;
+            
+            for(i = 1; i < ipos - 1; i++)
+            {
+                temp = temp.next;
+            }
+            newn.next = temp.next;
+            newn.next.prev = newn;
+            temp.next = newn;
+            newn.prev = temp;
+        }
+    }
+    
+    public void DeleteAtPos(int ipos)
+    {
+        int Countnode = 0, i = 0;
+        Countnode = Count();
+        
+        node temp = null;
+        node target = null;
+        
+        if((ipos < 1) || (ipos > Countnode))
+        {
+            System.out.println("Invalid Position ");
+            return;
+        }
+        if(ipos == 1)
+        {
+            DeleteFirst();
+        }
+        else if(ipos == Countnode)
+        {
+            DeleteLast();
+        }
+        else
+        {
+            temp = head;
+            
+            for(i = 1; i < ipos - 1; i++)
+            {
+                temp = temp.next;
+            }
+            target = temp.next;
+            temp.next = target.next;
+            temp.next.prev = temp;
+            System.gc();
+        }
+    }
+}
+
+class Program330
+{
+    public static void main(String A[])
+    {
+        DoublyLL dobj = new DoublyLL();
+        int iRet = 0;
+        
+        dobj.InsertFirst(51);
+        dobj.InsertFirst(21);
+        dobj.InsertFirst(11);
+        
+        dobj.InsertLast(101);
+        dobj.InsertLast(111);
+        dobj.InsertLast(151);
+        
+        dobj.Display();
+        iRet = dobj.Count();
+        System.out.println("Number Of Elements Are : "+iRet);
+        
+        dobj.InsertAtPos(75, 4);
+        
+        dobj.Display();
+        iRet = dobj.Count();
+        System.out.println("Number Of Elements Are : "+iRet);
+        
+        dobj.DeleteAtPos(4);
+        
+        dobj.Display();
+        iRet = dobj.Count();
+        System.out.println("Number Of Elements Are : "+iRet);
+                                            
+    }
+}
