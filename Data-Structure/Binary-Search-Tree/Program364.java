@@ -1,0 +1,150 @@
+class node
+{
+    public int data;
+    public node lchild;
+    public node rchild;
+    
+    public node()
+    {
+        data = 0;
+        lchild = null;
+        rchild = null;
+    }
+}
+
+class BST 
+{
+    public node head;
+    
+    public BST()
+    {
+        head = null;
+    }
+    
+    public void Insert(int no)
+    {
+        node temp = null;
+        node newn = null;
+        newn = new node();
+        newn.data = no;
+        
+        if(head == null)
+        {
+            head = newn;
+            return;
+        }
+        
+        temp = head;
+        
+        while(true)
+        {
+            if(no > temp.data)
+            {
+                if(temp.rchild == null)
+                {
+                    temp.rchild = newn;
+                    break;
+                }
+                temp = temp.rchild;
+            }
+            
+            else if(no < temp.data)
+            {
+                if(temp.lchild == null)
+                {
+                   temp.lchild = newn;
+                   break;
+                }
+                temp = temp.lchild;
+            }
+            
+            else
+            {
+                break;
+            }
+        }        
+    }
+    
+    boolean Search(int no)
+    {
+        node temp = head;
+        boolean bFlag = false;
+        
+        while(temp != null)
+        {
+            if(no == temp.data)
+            {
+                bFlag = true;
+                break;
+            }
+            else if(no > temp.data)
+            {
+                temp = temp.rchild;
+            }
+            else
+            {
+                temp = temp.lchild;
+            }
+        }        
+        return bFlag;
+    }
+    
+    int Max()
+    {
+        node temp = null;
+        temp = head;
+        
+        if(temp == null)
+        {
+            return -1;
+        }
+        
+        while(temp.rchild != null)
+        {
+            temp = temp.rchild;
+        }
+        return temp.data;
+    }
+    
+    int Min()
+    {
+        node temp = null;
+        temp = head;
+        
+        if(temp == null)
+        {
+            return -1;
+        }
+        
+        while(temp.lchild != null)
+        {
+            temp = temp.lchild;
+        }
+        return temp.data;
+    }
+}
+
+class Program364
+{
+    public static void main(String A[])
+    {
+        BST obj = new BST();
+        int iRet = 0;
+        boolean bRet = false;
+        
+        obj.Insert(21);
+        obj.Insert(11);
+        obj.Insert(51);
+        obj.Insert(35);
+        obj.Insert(75);
+        obj.Insert(18);
+        obj.Insert(9);
+        
+        iRet = obj.Max();
+        System.out.println("Largest Element From BST is : "+iRet);
+        
+        iRet = obj.Min();
+        System.out.println("Smallest Element From BST is : "+iRet);
+        
+    }
+}
